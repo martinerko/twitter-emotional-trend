@@ -1,21 +1,35 @@
 var basic_choropleth = new Datamap({
-  element: document.getElementById("basic_choropleth"),
+  element: document.getElementById('basic_choropleth'),
   projection: 'mercator',
   fills: {
-    defaultFill: "#ABDDA4"
+    defaultFill: '#ABDDA4'
+  },
+  geographyConfig: {
+    highlightOnHover: false,
+    highlightBorderColor: '#bada55',
+    popupTemplate: function(geography, data) {
+      if (!data) {
+        return '<div class="hoverinfo">' + geography.properties.name + '</div>';
+      }
+      var tweet = data.tweet;
+      var template = '<div class="hoverinfo">';
+      template += 'Last tweet from: ' + geography.properties.name + ' by: ';
+      template += '<a href="https://twitter.com/' + tweet.user + '" target="_blank">@' + tweet.user + '</a>';
+      template += '<div class="tweet">';
+      template += '<a href="https://twitter.com/' + tweet.user + '/status/' + tweet.id + '" target="_blank">' + tweet.text + '</a>';
+      template += '</div>';
+      template += '</div>';
+      return template;
+    }
   }
 });
 
-var colors = d3.scale.category10();
-
-window.setInterval(function() {
-  basic_choropleth.updateChoropleth({
-    USA: colors(Math.random() * 10),
-    RUS: colors(Math.random() * 100),
-    AUS: colors(Math.random() * 100),
-    BRA: colors(Math.random() * 50),
-    CAN: colors(Math.random() * 50),
-    ZAF: colors(Math.random() * 50),
-    IND: colors(Math.random() * 50)
-  });
-}, 2000);
+var socket = io('http://localhost:3000');
+socket.on('tweet', function(tweet) {
+  var data = {};
+  data[tweet.countryCode] = {
+    color: tweet.color,
+    tweet: tweet
+  };
+  basic_choropleth.updateChoropleth(data);
+});
