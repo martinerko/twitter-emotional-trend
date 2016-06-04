@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+    <title>Twitter emotional trend</title>
+    <script src="/public/d3.v3.min.js" charset="utf-8"></script>
+    <script src="/public/topojson.v1.min.js" charset="utf-8"></script>
+    <script src="/public/datamaps.world.min.js" charset="utf-8"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        .map {
+            position: relative;
+            margin: 0 auto;
+            width: 1000px;
+            height: 700px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="map" id="basic_choropleth"></div>
+
+    <script>
+        var socket = io('http://localhost:3000');
+        socket.on('news', function(data) {
+            console.log(data);
+        });
+    </script>
+    <script src="/public/map.js" charset="utf-8"></script>
+</body>
