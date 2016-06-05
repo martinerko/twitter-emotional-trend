@@ -3,6 +3,7 @@
 This simple app uses Twitter stream API, D3.js and word-association lexicon to calculate and show the current emotional trend of randomly selected tweets on the world map.
 
 ![Twitter Emotional Trend Map Screenshot](public/capture.png)
+
 Brighter colors represent more positive tweets.
 
 ## Setup
