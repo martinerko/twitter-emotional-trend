@@ -1,6 +1,6 @@
 # Twitter Emotional Trend
 
-This simple app uses Twitter stream API, D3.js and word-association lexicon to calculate and show the current emotional trend of randomly selected tweets on the world map.
+This simple real-time app uses Twitter stream API, d3.js, socket.io and word-association lexicon to calculate and visualize the current emotional trend of randomly selected geotagged tweets on the world map.
 
 ![Twitter Emotional Trend Map Screenshot](public/capture.png)
 
